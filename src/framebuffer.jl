@@ -10,8 +10,7 @@ Construct using
     fb = FrameBuffer(buffer::Array{T,3})
     fb = FrameBuffer{T}(w::Int, h::Int, n::Int)
 where `n` is the buffer capacity.
-`fb` supports `push!`, `median`, `mean`, `sum`, `var`, `std`,
-`reshape`, `size`, `length`, `capacity`, `Matrix`, `isready`
+`fb` supports `push!`, `median`, `mean`, `sum`, `var`, `std`
 and iteration.
 """
 mutable struct FrameBuffer{T}
@@ -57,26 +56,15 @@ Base.@propagate_inbounds function Base.getindex(b::FrameBuffer, i, j, k)
     b.b[i, j, k]
 end
 
-for f in (median, mean, sum, std, var, reshape, size)
+for f in (median, mean, sum, std, var)
     m = parentmodule(f)
     fs = nameof(f)
     @eval function $m.$fs(b::FrameBuffer{T}, args...)::Matrix{T} where T
         if b.full
-            return map($fs, Slices(b.b, 3))
+            return dropdims($fs(b.b, args..., dims=3), dims=3)
         else
             return dropdims($fs(@view(b.b[:, :, 1:b.c]), args..., dims=3), dims=3)
         end
     end
 end
 
-for f in (diff,)
-    m = parentmodule(f)
-    fs = nameof(f)
-    @eval function $m.$fs(b::FrameBuffer{T}, args...) where T
-        if b.full
-            return FrameBuffer($fs(b.b, args..., dims=3))
-        else
-            return FrameBuffer($fs(@view(b.b[:, :, 1:b.c]), args..., dims=3))
-        end
-    end
-end
