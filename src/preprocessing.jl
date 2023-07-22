@@ -1,7 +1,7 @@
 export process_nd2
 
 function process_nd2(
-    nd2::Vector{ImageMeta};
+    nd2;
     PxType = Float32,
     channel = 1,
     bufsize = 5,
@@ -33,7 +33,7 @@ function process_nd2(
 
     # process each tile independently
     @inbounds for n in axes(tiles, 4)
-        tilestack = @view nd2[n]
+        tilestack = nd2[n]
         verbose && println("TILE #$(n)")
         tile = @view tiles[:, :, :, n]
         process_tile!(tile, tilestack, nf,
@@ -88,7 +88,7 @@ function process_tile!(tile, nd2, nf,
         end
     end
     if binarization
-        binarize!(data, Otsu())
+        binarize!(tile, Otsu())
     end
     return nothing
 end
