@@ -24,7 +24,7 @@ function process_nd2(
     # preallocate Gaussian kernels and dummy matrix for bandpass
     K₁ = Kernel.gaussian(PxType(σ₁))
     K₂ = Kernel.gaussian(PxType(σ₂))
-    dummy_img = zero( @view nd2[1][channel, :, :, 1, 1] )
+    dummy_img = zeros(PxType, ny, nx)
 
     # preallocate tiles and spatial ranges
     tiles = zeros(PxType, ny, nx, nf-bufsize, ntiles)
