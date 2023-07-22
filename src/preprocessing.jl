@@ -1,3 +1,5 @@
+export process_nd2
+
 function process_nd2(
     nd2::Vector{ImageMeta};
     PxType = Float32,
