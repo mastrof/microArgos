@@ -88,7 +88,8 @@ function process_tile!(tile, nd2, nf,
         end
     end
     if binarization
-        binarize!(tile, Otsu())
+        dilate!(tile; dims=(1,2))
+        binarize!(tile, Otsu(); nbins=12)
     end
     return nothing
 end
