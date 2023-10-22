@@ -11,6 +11,7 @@ ImageMetadata = "bc367c6b-8a6b-528e-b4bd-a4b897500b49"
 ImageView = "86fae568-95e7-573e-a6b2-d8a6b900c9ef"
 Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
 MeanSquaredDisplacement = "13c93d70-909c-440c-af92-39d48ffa2ba2"
+Pandas = "eadc2687-ae89-51f9-a5d9-86b5a6373a9c"
 StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 TensorCast = "02d47bb6-7ce6-556a-be16-bb1710789e2b"
 
