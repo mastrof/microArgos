@@ -54,7 +54,8 @@ function process_nd2(
         ys[n] = range(y₀; step = Δy, length = ny)
     end
 
-    return tiles, smoothgrid(xs, 1), smoothgrid(ys, 1)
+    #return tiles, smoothgrid(xs, 1), smoothgrid(ys, 1)
+    return tiles, xs, ys
 end
 
 function process_tile!(tile, nd2, nf,
