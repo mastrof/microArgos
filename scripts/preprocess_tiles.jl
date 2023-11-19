@@ -6,17 +6,17 @@ using Images
 using DelimitedFiles
 
 ## Import raw data
-fdir = datadir("exp_raw", "2023-10-23_12B09")
+fdir = datadir("exp_raw", "2023-07-29_12B09")
 fname = joinpath(fdir, "uargos001.nd2")
 nd2 = bf_import(fname);
 
 
 ## Preprocess each tile individually
 tiles, x, y = process_nd2(nd2;
-    mediansubtraction = true,
-    bandpass = false,
+    mediansubtraction = false,
+    bandpass = true,
     binarization = false,
-    maxnf = 900
+    maxnf = 2000
 )
 nd2 = nothing; GC.gc()
 
